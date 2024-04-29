@@ -2,75 +2,69 @@ package ru.netology.stats;
 
 public class StatsService {
 
-    public int calculateSumSales(int[] sales) {
-        int sum = 0;
-        for (int sale : sales) {
-            sum += sale;
+
+    public long calculateSumSales(long[] sales) {
+        long totalSale = 0;
+        for (long sale : sales) {
+            totalSale += sale;
         }
-        return sum;
+        return totalSale;
     }
 
-    public int findAverage(int[] sales) {
+    public long findAverage(long[] sales) {
 
         return calculateSumSales(sales) / sales.length;
     }
 
-    public int findMaxSales(int[] sales) {
-        int maxMonth = sales[0];
-        int month = 0;
-        for (int sale : sales) {
-            if (sale >= sales[maxMonth]) {
-                maxMonth = month;
+    public long averageSales(long[] sales) {
+        if (sales.length == 0) {
+            return 0;
+        } else {
+            return calculateSumSales(sales) / sales.length;
+        }
+    }
+
+    public int findMaxSales(long[] sales) {
+        int maxMonth = 0;
+        for (int i = 0; i < sales.length; i++) {
+            if (sales[i] >= sales[maxMonth]) {
+                maxMonth = i;
             }
-            month = month + 1;
         }
         return maxMonth + 1;
     }
 
-    public int findMinSales(int[] sales) {
+    public int findMinSales(long[] sales) {
         int minMonth = 0;
-        int month = 0;
-        for (int sale : sales) {
-            if (sale <= sales[minMonth]) {
-                minMonth = month;
+        for (int i = 0; i < sales.length; i++) {
+            if (sales[i] <= sales[minMonth]) {
+                minMonth = i;
             }
-            month = month + 1;
         }
         return minMonth + 1;
     }
 
-    public int findSalesBelowAverage(int[] sales) {
-        int sum = 0;
-        for (int i = 0; i < sales.length; i++) {
-            sum += sales[i];
-        }
-        double average = (double) sum / sales.length;
-
-        int count = 0;
-        for (int i = 0; i < sales.length; i++) {
-            if (sales[i] < average) {
-                count++;
+    public int findSalesBelowAverage(long[] sales) {
+        int counter = 0;
+        long average = averageSales(sales);
+        for (long sale : sales) {
+            if (sale < average) {
+                counter++;
             }
         }
-        return count;
+        return counter;
     }
 
-    public int findSalesAboveAverage(int[] sales) {
-        int sum = 0;
-        for (int i = 0; i < sales.length; i++) {
-            sum += sales[i];
-        }
-        double average = (double) sum / sales.length;
-
-        int count = 0;
-        for (int i = 0; i < sales.length; i++) {
-            if (sales[i] > average) {
-                count++;
+    public long findSalesAboveAverage(long[] sales) {
+        int counter = 0;
+        long average = averageSales(sales);
+        for (long sale : sales) {
+            if (sale > average) {
+                counter++;
             }
         }
-        return count;
+        return counter;
     }
-
 }
 
 
